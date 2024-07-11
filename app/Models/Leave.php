@@ -15,4 +15,8 @@ class Leave extends Model
         'reason',
         'on_leave',
     ];
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }

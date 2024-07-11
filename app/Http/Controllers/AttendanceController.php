@@ -3,17 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\Leave;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
-        return Attendance::all() ;
     }
 
     /**

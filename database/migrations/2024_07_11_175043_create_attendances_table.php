@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('check_in')->nullable();
             $table->time('check_out')->nullable();
-            $table->enum('status', ['absent', 'present', 'on remote'])->default('absent');
+            $table->enum('status', ['absent', 'present', 'on_leave'])->default('absent');
             $table->timestamps();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });

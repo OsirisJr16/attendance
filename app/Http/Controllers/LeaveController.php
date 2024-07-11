@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Leave;
 use Illuminate\Http\Request;
 
 class LeaveController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
