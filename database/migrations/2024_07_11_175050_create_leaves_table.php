@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->string('reason');
-            $table->enum('type', ['remote', 'onsite'])->default('onsite');
+            $table->boolean('on_leave')->default(false);
             $table->timestamps();
 
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
