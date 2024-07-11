@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ContractType;
 
 class ContractTypeController extends Controller
 {
@@ -11,15 +12,8 @@ class ContractTypeController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $contractTypes = ContractType::all();
+        return response()->json($contractTypes);
     }
 
     /**
@@ -27,38 +21,43 @@ class ContractTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255|unique:contract_types',
+        ]);
+
+        $contractType = ContractType::create($request->all());
+        return response()->json($contractType, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        $contractType = ContractType::findOrFail($id);
+        return response()->json($contractType);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'sometimes|required|string|max:255|unique:contract_types,name,' . $id,
+        ]);
+
+        $contractType = ContractType::findOrFail($id);
+        $contractType->update($request->all());
+        return response()->json($contractType);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        ContractType::destroy($id);
+        return response()->json(null, 204);
     }
 }

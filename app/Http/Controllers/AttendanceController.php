@@ -4,60 +4,59 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Leave;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
     public function index()
     {
-        //
+        $attendance = Attendance::with('employee:id,first_name,last_name,email')->get();
+        return response()->json($attendance);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $attendance = new Attendance();
+        $attendance->employee_id = $request->employee_id;
+        $attendance->date = $request->date;
+        $attendance->check_in = $request->check_in;
+        $attendance->check_out = $request->check_out;
+
+        $leave = Leave::where('employee_id', $request->employee_id)
+            ->where('start_date', '<=', $request->date)
+            ->where('end_date', '>=', $request->date)
+            ->first();
+
+        if ($leave && $leave->on_leave) {
+            $attendance->status = 'on_leave';
+        } elseif ($request->check_in && $request->check_out) {
+            $attendance->status = 'present';
+        } else {
+            $attendance->status = 'absent';
+        }
+
+        $attendance->save();
+
+        return response()->json($attendance, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        return Attendance::findOrFail($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $attendance = Attendance::findOrFail($id);
+        $attendance->update($request->all());
+        return response()->json($attendance, 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $attendance = Attendance::findOrFail($id);
+        $attendance->delete();
+        return response()->json(null, 204);
     }
 }
