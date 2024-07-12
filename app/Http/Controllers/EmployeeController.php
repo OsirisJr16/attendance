@@ -27,7 +27,8 @@ class EmployeeController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:employees',
             'phone' => 'nullable|string|max:20',
-            'contract_type_id' => 'required|exists:contract_types,id'
+            'contract_type_id' => 'required|exists:contract_types,id',
+            'poste_id' => 'required|exists:postes,id'
         ]);
 
         $employee = Employee::create($request->all());
@@ -53,7 +54,8 @@ class EmployeeController extends Controller
             'last_name' => 'sometimes|required|string|max:255',
             'email' => 'sometimes|required|string|email|max:255|unique:employees,email,' . $id,
             'phone' => 'nullable|string|max:20',
-            'contract_type_id' => 'sometimes|required|exists:contract_types,id'
+            'contract_type_id' => 'sometimes|required|exists:contract_types,id',
+            'poste_id' => 'sometimes|required|exits:postes,id'
         ]);
 
         $employee = Employee::findOrFail($id);

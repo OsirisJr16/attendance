@@ -14,6 +14,7 @@ class Employee extends Model
         'email',
         'phone',
         'contract_type_id',
+        'poste_id'
     ];
     public function contractType()
     {
@@ -28,5 +29,9 @@ class Employee extends Model
     public function leaves()
     {
         return $this->hasMany(Leave::class);
+    }
+    public function postes()
+    {
+        return $this->belongsTo(Poste::class);
     }
 }
