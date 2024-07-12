@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PosteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -26,7 +27,7 @@ Route::resource('employees', EmployeeController::class);
 Route::resource('contract-types', ContractTypeController::class);
 Route::resource('attendances', AttendanceController::class);
 Route::resource('leaves', LeaveController::class);
-
+Route::resource('postes',PosteController::class);
 Route::get('/download-report/{date}', function ($date) {
     $filePath = storage_path('app/public/reports/daily_report_' . $date . '.pdf');
 
