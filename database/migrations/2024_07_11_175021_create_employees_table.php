@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->unsignedBigInteger('contract_type_id');
+            $table->unsignedBigInteger('poste_id');
             $table->timestamps();
             $table->foreign('contract_type_id')->references('id')->on('contract_types');
+            $table->foreign('poste_id')->references('id')->on('postes');
         });
     }
 
