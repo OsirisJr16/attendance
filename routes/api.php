@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\PosteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -8,6 +7,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ContractTypeController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\PosteController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
