@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('leave:update-status')->daily();
-        $schedule->command('generate:daily-report')->dailyAt('17:01');
+        $schedule->command('generate:daily-report')->dailyAt('18:01');
     }
 
     /**
