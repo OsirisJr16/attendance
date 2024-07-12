@@ -45,6 +45,8 @@ class PosteController extends Controller
     public function show(string $id)
     {
         //
+        $postes = Poste::findOrFail($id);
+        return response()->json($postes);
     }
 
     /**
@@ -53,8 +55,7 @@ class PosteController extends Controller
     public function edit(string $id)
     {
         //
-        $postes = Poste::findOrFail($id);
-        return response()->json($postes);
+       
     }
 
     /**
